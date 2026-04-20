@@ -1,5 +1,5 @@
 # --- Stage 1: Build Frontend ---
-FROM node:22-alpine AS frontend-builder
+FROM node:22-slim AS frontend-builder
 WORKDIR /app/frontend
 # NODE_ENV=production is NOT set here to ensure devDependencies like Vite are installed for the build
 COPY frontend/package*.json ./
