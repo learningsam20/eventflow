@@ -34,12 +34,14 @@ export default function NarrativePage() {
     try {
       // Fetch media first to provide context
       const mediaRes = await api.get(`/api/media/${selectedEvent.id}`)
-      setMedia(mediaRes.data)
+      setMedia(Array.isArray(mediaRes.data) ? mediaRes.data : [])
 
       const narrativeRes = await api.get(`/api/analytics/event/${selectedEvent.id}/narrative`)
-      setNarrative(narrativeRes.data.narrative)
+      setNarrative(narrativeRes.data.narrative || '')
     } catch (e) {
-      toast.error('Failed to generate live narration')
+      const msg = e.response?.data?.detail || e.message || 'Unknown error'
+      toast.error(`Failed to generate live narration: ${msg}`)
+      console.error('[NarrativePage] fetchNarrative error:', e)
     } finally {
       setLoading(false)
     }

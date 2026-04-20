@@ -1,7 +1,9 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import Marker from 'markdown-to-jsx'
 
 export default function NarrativeModal({ data, onClose }) {
+  const navigate = useNavigate()
   if (!data) return null
   const { narrative, media, stats } = data
 
@@ -94,7 +96,7 @@ export default function NarrativeModal({ data, onClose }) {
           <p className="text-xs text-muted" style={{ margin: 0 }}>
             This report was grounded in {media?.length || 0} stadium photos and real-time sensor metrics.
           </p>
-          <button className="btn btn-primary btn-sm" onClick={() => window.location.href='/narrative'}>
+          <button className="btn btn-primary btn-sm" onClick={() => { onClose(); navigate('/narrative') }}>
             View Visual Reel →
           </button>
         </div>

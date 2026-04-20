@@ -127,7 +127,9 @@ export default function TicketsPage() {
       const res = await api.get(`/api/analytics/event/${ticket.event_id}/narrative`)
       setSelectedNarrative(res.data)
     } catch (e) {
-      toast.error('Could not load detailed report')
+      const msg = e.response?.data?.detail || e.message || 'Unknown error'
+      toast.error(`Could not load story: ${msg}`)
+      console.error('[TicketsPage] narrative fetch error:', e)
     } finally {
       setNarrativeLoading(false)
     }
