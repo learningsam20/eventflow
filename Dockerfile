@@ -3,7 +3,7 @@ FROM node:22-slim AS frontend-builder
 WORKDIR /app/frontend
 # NODE_ENV=production is NOT set here to ensure devDependencies like Vite are installed for the build
 COPY frontend/package*.json ./
-RUN npm install
+RUN npm ci --include=dev
 COPY frontend/ ./
 RUN npm run build
 
